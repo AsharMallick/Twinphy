@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { signupUser } from "../../state/actions/user";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -67,107 +67,143 @@ const Signup = () => {
   }, [user, navigate]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-sm">
-        <form
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-          onSubmit={handleSubmit}
-        >
-          {avatar && (
-            <img src={avatar} className="rounded-md h-[50%] w-[50%] mx-auto" />
-          )}
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="name"
-            >
-              Name
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="name"
-              type="text"
-              placeholder="Enter your name"
-              value={name}
-              onChange={handleNameChange}
+    <>
+      <section className="bg-white lg:bg-primary">
+        <div className="flex flex-col justify-center items-center min-h-screen space-y-5 w-3/4 mx-auto bg-white">
+          <h1 className="text-3xl font-bold ">Create an account</h1>
+          <form className="flex justify-center items-center flex-col space-y-4 w-full mx-auto">
+            <InputUser id={"name"} placeholder={"Name"} type={"text"} />
+            <InputEmail id={"email"} placeholder={"Email"} type={"email"} />
+            <InputPassword
+              id={"password"}
+              placeholder={"Password"}
+              type={"password"}
             />
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="email"
-            >
-              Email
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="email"
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={handleEmailChange}
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-              id="password"
-              type="password"
-              placeholder="********"
-              minLength={7}
-              value={password}
-              onChange={handlePasswordChange}
-            />
-          </div>
-          <div className="my-4">
-            <label htmlFor="file">Choose a profile image</label>
-            <input
-              className="transition disabled:bg-blue-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="file"
-              accept="image/*"
-              id="file"
-              onChange={handleImageChange}
-            />
-          </div>
-          <div className="flex items-center justify-between">
-            <button
-              disabled={loading}
-              className="bg-blue-500 transition disabled:bg-blue-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
-              Sign Up
-            </button>
-          </div>
-          <div className="mt-4 space-y-4">
-            <p className="text-center text-gray-500">Or sign up with:</p>
-            <div className="flex justify-center">
+            <div className="w-[90%] ">
               <button
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
-                onClick={handleGoogleSignup}
+                type={"submit"}
+                className="w-full text-xl font-bold p-2 rounded-md text-white mx-auto bg-[#e48c61]"
               >
-                Google
-              </button>
-              <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
-                onClick={handleFacebookSignup}
-              >
-                Facebook
+                Sign in
               </button>
             </div>
+          </form>
+          <div className="my-4 flex space-x-4 items-center justify-center">
+            <p className="text-sm text-gray-600 font-thin">
+              Already have an account?
+            </p>
+            <Link
+              to={"/login"}
+              className="text-sm text-[#e48c61] underline font-bold"
+            >
+              Login here
+            </Link>
           </div>
-        </form>
-        <p className="text-center text-gray-500 text-xs">
-          &copy; 2023 Acme Corp. All rights reserved.
-        </p>
-      </div>
-    </div>
+        </div>
+      </section>
+    </>
   );
 };
 
 export default Signup;
+
+export const InputUser = (props) => (
+  <div
+    className={`input flex ${
+      props.width ? props.width : "w-[90%]"
+    } border-[1px] p-[6px] rounded-lg border-[#e48c61] space-x-3`}
+  >
+    <div className="input-icon bg-[#ffcd90] w-fit p-2 rounded-md">
+      <svg width="20" height="20" viewBox="0 0 19 19" fill="none">
+        <path
+          d="M15.587 16.3479V14.8261C15.587 14.019 15.2663 13.2448 14.6956 12.6741C14.1248 12.1033 13.3507 11.7827 12.5435 11.7827H6.45655C5.64937 11.7827 4.87525 12.1033 4.30448 12.6741C3.73372 13.2448 3.41307 14.019 3.41307 14.8261V16.3479"
+          stroke="white"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        ></path>
+        <path
+          d="M9.50002 8.73918C11.1809 8.73918 12.5435 7.37657 12.5435 5.6957C12.5435 4.01483 11.1809 2.65222 9.50002 2.65222C7.81915 2.65222 6.45654 4.01483 6.45654 5.6957C6.45654 7.37657 7.81915 8.73918 9.50002 8.73918Z"
+          stroke="white"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        ></path>
+      </svg>
+    </div>
+    <input
+      type={props.tyoe}
+      id={props.id}
+      className="placeholder:text-gray-600 text-sm w-[90%] rounded-lg mx-auto border-none outline-none"
+      placeholder={props.placeholder}
+    />
+  </div>
+);
+export const InputEmail = (props) => (
+  <div className="input flex w-[90%] border-[1px] p-[6px] rounded-lg border-[#e48c61] space-x-3">
+    <div className="input-icon bg-[#ffcd90] w-fit p-2 rounded-md">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path
+          d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"
+          stroke="white"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        ></path>
+        <path
+          d="M22 6L12 13L2 6"
+          stroke="white"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        ></path>
+      </svg>
+    </div>
+    <input
+      type={props.tyoe}
+      id={props.id}
+      className="placeholder:text-gray-600 text-sm w-[90%] rounded-lg mx-auto border-none outline-none"
+      placeholder={props.placeholder}
+    />
+  </div>
+);
+export const InputPassword = (props) => {
+  const [isHidden, setIsHidden] = useState(true);
+
+  return (
+    <div className="input flex w-[90%] border-[1px] p-[6px] rounded-lg border-[#e48c61] space-x-3">
+      <div className="input-icon bg-[#ffcd90] w-fit p-2 rounded-md">
+        <svg width="20" height="20" viewBox="0 0 19 19" fill="none">
+          <path
+            d="M15.587 16.3479V14.8261C15.587 14.019 15.2663 13.2448 14.6956 12.6741C14.1248 12.1033 13.3507 11.7827 12.5435 11.7827H6.45655C5.64937 11.7827 4.87525 12.1033 4.30448 12.6741C3.73372 13.2448 3.41307 14.019 3.41307 14.8261V16.3479"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          ></path>
+          <path
+            d="M9.50002 8.73918C11.1809 8.73918 12.5435 7.37657 12.5435 5.6957C12.5435 4.01483 11.1809 2.65222 9.50002 2.65222C7.81915 2.65222 6.45654 4.01483 6.45654 5.6957C6.45654 7.37657 7.81915 8.73918 9.50002 8.73918Z"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          ></path>
+        </svg>
+      </div>
+      <label htmlFor="passpword"></label>
+      <input
+        type={isHidden ? props.type : "text"}
+        id={props.id}
+        className="placeholder:text-gray-600 text-sm w-[90%] rounded-lg mx-auto border-none outline-none"
+        placeholder={props.placeholder}
+      />
+      <button
+        type="button"
+        className="text-sm text-gray-500"
+        onClick={() => setIsHidden(!isHidden)}
+      >
+        {isHidden ? "Show" : "Hide"}
+      </button>
+    </div>
+  );
+};

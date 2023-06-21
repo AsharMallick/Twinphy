@@ -16,28 +16,26 @@ const userSchema = new mongoose.Schema({
 
   email: {
     type: String,
-    required: [true, "Please enter an email"],
+    required: true,
     unique: [true, "Email already exists"],
   },
   password: {
     type: String,
-    required: [true, "Please enter a password"],
-    minlength: [6, "Password must be at least 6 characters"],
     select: false,
   },
 
-  role:{
-    type:String,
-    default:"User"
+  role: {
+    type: String,
+    default: "User",
   },
 
-  blocks:[
+  blocks: [
     {
-        user:{
-            type:mongoose.Schema.Types.ObjectId,
-            required:true
-        }
-    }
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+      },
+    },
   ],
 
   posts: [
@@ -59,6 +57,15 @@ const userSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
+  googleId: {
+    type: String,
+    // unique: true,
+  },
+
+  facebookId: {
+    type: String,
+    // unique: true,
+  },
 
   resetPasswordToken: String,
   resetPasswordExpire: Date,

@@ -16,6 +16,7 @@ const {
   getUserPosts,
 } = require("../controllers/user");
 const { isAuthenticated } = require("../middlewares/auth");
+const passport = require("passport");
 const router = express.Router();
 
 router.route("/register").post(register);
@@ -45,5 +46,37 @@ router.route("/users").get(isAuthenticated, getAllUsers);
 router.route("/forgot/password").post(forgotPassword);
 
 router.route("/password/reset/:token").put(resetPassword);
+
+router.get(
+  "/googlelogin",
+  passport.authenticate("google", {
+    scope: [
+      "https://www.googleapis.com/auth/userinfo.profile",
+      "https://www.googleapis.com/auth/userinfo.email",
+    ],
+  })
+);
+router.get(
+  "/facebook",
+  passport.authenticate("facebook", { scope: ["profile"] })
+);
+
+router.get(
+  "/login",
+  passport.authenticate("google", {
+    scope: ["profile"],
+    successRedirect: "http://localhost:4000/api/v1/me",
+    //successRedirect:process.env.FRONTEND_URL
+  })
+);
+
+router.get(
+  "/facebook/callback",
+  passport.authenticate("facebook", {
+    scope: ["profile"],
+    successRedirect: "http://localhost:4000/api/v1/me",
+    //successRedirect:process.env.FRONTEND_URLs
+  })
+);
 
 module.exports = router;

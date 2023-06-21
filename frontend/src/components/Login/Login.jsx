@@ -2,10 +2,14 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../state/actions/user";
 import { Link, useNavigate } from "react-router-dom";
-
+import picture from "../../assets/pic4.jpg";
+import facebookLogo from "../../assets/facebook.png";
+import googleLogo from "../../assets/google.png";
+import { InputEmail, InputPassword } from "../Signup/Signup";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isHidden, setIsHidden] = useState(true);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,76 +41,53 @@ const Login = () => {
   }, [user, navigate]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-sm">
-        <form
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-          onSubmit={handleSubmit}
-        >
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="email"
-            >
-              Email
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="email"
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={handleEmailChange}
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-              id="password"
-              type="password"
-              placeholder="********"
-              value={password}
-              onChange={handlePasswordChange}
-            />
-          </div>
-          <div className="flex items-center justify-between">
-            <button
-              disabled={loading}
-              className="bg-blue-500 disabled:bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
-              Sign In
-            </button>
+    <section className="bg-white lg:bg-primary">
+      <div className="flex flex-col justify-center items-center min-h-screen space-y-5 w-3/4 mx-auto bg-white">
+        <h1 className="text-3xl font-bold">Sign in</h1>
+        <form className="flex justify-center items-center flex-col space-y-4 w-full mx-auto">
+          <InputEmail id={"email"} placeholder={"Email"} type={"email"} />
+          <InputPassword
+            id={"password"}
+            placeholder={"Password"}
+            type={"password"}
+          />
+          <div className="forgot flex justify-end">
             <Link
-              className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-              to={"/forgot/passwordtest"}
+              to={"/forgot/password"}
+              className="text-sm underline text-[#e48c61]"
             >
-              Forgot Password?
+              Forgot Password
             </Link>
           </div>
-          <div className="mt-4">
-            <p className="text-center text-gray-500 my-4">Or sign in with:</p>
-            <div className="flex justify-center">
-              <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2">
-                Google
-              </button>
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2">
-                Facebook
-              </button>
-            </div>
+          <div className="w-[90%] ">
+            <button
+              type={"submit"}
+              className="w-full text-xl font-bold p-2 rounded-md text-white mx-auto bg-[#e48c61]"
+            >
+              Sign in
+            </button>
           </div>
         </form>
-        <p className="text-center text-gray-500 text-xs">
-          &copy; 2023 Acme Corp. All rights reserved.
-        </p>
+        <div>
+          <p className="text-xs text-[#ffcd90]">Or sign in with</p>
+        </div>
+        <div className="flex space-x-10">
+          <img src={facebookLogo} alt="" className="w-8 h-8" />
+          <img src={googleLogo} alt="" className="w-8 h-8" />
+        </div>
+        <div className="my-4 flex space-x-4 items-center justify-center">
+          <p className="text-sm text-gray-600 font-thin">
+            Don&apos;t have an account?
+          </p>
+          <Link
+            to={"/signup"}
+            className="text-sm text-[#e48c61] underline font-bold"
+          >
+            Sign up here
+          </Link>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

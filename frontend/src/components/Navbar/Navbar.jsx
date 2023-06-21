@@ -1,17 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+// import logo from "../../assets/logo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-import logo from "../../assets/logo.png";
 import { loadUser, logout } from "../../state/actions/user";
 
 const Navbar = () => {
+  const location = useLocation();
   const { user } = useSelector((state) => state.user);
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  useEffect(() => {
+    if (location.pathname == "/login" || location.pathname === "/signup") {
+      setIsHidden(true);
+    }
+  }, [location.pathname]);
 
   const dispatch = useDispatch();
   const handleLogout = async () => {
@@ -20,184 +23,102 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <img className="h-32 w-32" src={logo} alt="Logo" />
-            </div>
-            <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-4">
-                <Link
-                  to="/"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Home
-                </Link>
-                <a
-                  href="#"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  About
-                </a>
-                <a
-                  href="#"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Services
-                </a>
-                <a
-                  href="#"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Contact
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="hidden md:block">
-            <div className="ml-4 flex items-center md:ml-6">
-              {/* <button className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                <span className="sr-only">View notifications</span>
-                <svg
-                  className="h-6 w-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </button> */}
-
-              <div className="ml-3 relative">
-                {user ? (
-                  <div className="flex space-x-3">
-                    <button
-                      className="bg-red-500 disabled:bg-blue-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                      type="submit"
-                      onClick={handleLogout}
-                    >
-                      Logout
-                    </button>
-                    <Link
-                      className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm  space-x-4"
-                      id="user-menu"
-                    >
-                      <h1 className="text-white">{user.name}</h1>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src={user.avatar.url}
-                        alt="No image"
-                      />
-                    </Link>
-                  </div>
-                ) : (
-                  <div className="text-blue-700 space-x-4">
-                    <Link to="/login">
-                      <button
-                        className="bg-blue-500 disabled:bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="submit"
-                      >
-                        Sign In
-                      </button>
-                    </Link>
-                    <Link to="/signup">
-                      <button
-                        className="bg-blue-500 disabled:bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="submit"
-                      >
-                        Register
-                      </button>
-                    </Link>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-          <div className="-mr-2 flex md:hidden">
-            <button
-              type="button"
-              className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-              aria-controls="mobile-menu"
-              aria-expanded="false"
-              onClick={toggleMenu}
+    !isHidden && (
+      <nav className="fixed h-[10vh] w-[100vw] bg-white flex justify-evenly items-center bottom-0">
+        <Link to={"/"}>
+          <div className="nav-element">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              fill="none"
+              xmlns:v="https://vecta.io/nano"
             >
-              <span className="sr-only">Open main menu</span>
-              <svg
-                className="block h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-              <svg
-                className="hidden h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
+              <path
+                className={`${location.pathname === "/" && "fill-primary"}`}
+                d="M21.44 11.035a.75.75 0 0 1-.69.465H18.5V19a2.25 2.25 0 0 1-2.25 2.25h-3a.75.75 0 0 1-.75-.75V16a.75.75 0 0 0-.75-.75h-1.5a.75.75 0 0 0-.75.75v4.5a.75.75 0 0 1-.75.75h-3A2.25 2.25 0 0 1 3.5 19v-7.5H1.25a.75.75 0 0 1-.69-.465.75.75 0 0 1 .158-.818l9.75-9.75A.75.75 0 0 1 11 .246a.75.75 0 0 1 .533.222l9.75 9.75a.75.75 0 0 1 .158.818z"
+                fill="#b5b5b5"
+              ></path>
+            </svg>
           </div>
+        </Link>
+        <Link to={"/search"}>
+          <div className="nav-element">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                className={`${
+                  location.pathname === "/search" && "stroke-primary"
+                }`}
+                d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z"
+                stroke="#b5b5b5"
+                strokeOpacity="1"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              ></path>
+              <path
+                className={`${
+                  location.pathname === "/search" && "stroke-primary"
+                }`}
+                d="M21 21L16.65 16.65"
+                stroke="#b5b5b5"
+                strokeOpacity="1"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              ></path>
+            </svg>
+          </div>
+        </Link>
+        <div
+          style={{ margin: "-45px 20px 33px" }}
+          className=" w-[45px] cursor-pointer text-[25px] shadow-2xl min-w-[45px] h-[45px] text-white bg-primary flex justify-center items-center rounded-[14px]"
+        >
+          <i className="fa-solid fa-plus"></i>
         </div>
-      </div>
-
-      <div
-        className={`${isMenuOpen ? "block" : "hidden"} md:hidden`}
-        id="mobile-menu"
-      >
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          <a
-            href="#"
-            className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-          >
-            Home
-          </a>
-          <a
-            href="#"
-            className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-          >
-            About
-          </a>
-          <a
-            href="#"
-            className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-          >
-            Services
-          </a>
-          <a
-            href="#"
-            className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-          >
-            Contact
-          </a>
-        </div>
-      </div>
-    </nav>
+        <Link to={"/chat"}>
+          <div className="nav-element">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="#b5b5b5"
+              viewBox="0 0 511.606 511.606"
+              xmlns:v="https://vecta.io/nano"
+            >
+              <path
+                className={`${location.pathname === "/chat" && "fill-primary"}`}
+                d="M436.594 74.943c-99.917-99.917-261.637-99.932-361.568 0-80.348 80.347-95.531 199.817-48.029 294.96L.662 485.742c-3.423 15.056 10.071 28.556 25.133 25.133l115.839-26.335c168.429 84.092 369.846-37.653 369.846-228.812 0-68.29-26.595-132.494-74.886-180.785zM309.143 319.394h-160c-11.598 0-21-9.402-21-21s9.402-21 21-21h160c11.598 0 21 9.402 21 21s-9.402 21-21 21zm53.334-85.333H149.143c-11.598 0-21-9.402-21-21s9.402-21 21-21h213.334c11.598 0 21 9.402 21 21s-9.403 21-21 21z"
+              ></path>
+            </svg>
+          </div>
+        </Link>
+        <Link to={"/profile"}>
+          <div className="nav-element">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="21"
+              fill="#b5b5b5"
+              xmlns:v="https://vecta.io/nano"
+            >
+              <path
+                className={`${
+                  location.pathname === "/profile" && "fill-primary"
+                }`}
+                d="M8 7.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 1 0 0 7.5zm7.5 9v1.5c-.002.199-.079.39-.217.532C13.61 20.455 8.57 20.5 8 20.5s-5.61-.045-7.282-1.718C.579 18.64.501 18.449.5 18.25v-1.5a7.5 7.5 0 1 1 15 0z"
+              ></path>
+            </svg>
+          </div>
+        </Link>
+      </nav>
+    )
   );
 };
 

@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon backend/server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix frontend && npm run build --prefix frontend"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "node backend/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,9 +18,13 @@
     "cors": "^2.8.5",
     "dotenv": "^11.0.0",
     "express": "^4.17.2",
+    "express-session": "^1.17.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.6",
     "nodemailer": "^6.7.2",
+    "passport": "^0.6.0",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth20": "^2.0.0",
     "react-router-dom": "^6.13.0"
   },
   "devDependencies": {

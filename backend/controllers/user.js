@@ -23,7 +23,7 @@ exports.register = async (req, res) => {
       name,
       email,
       password,
-      avatar: { public_id: myCloud.public_id , url: myCloud.secure_url },
+      avatar: { public_id: myCloud.public_id, url: myCloud.secure_url },
     });
     await user.save();
     const token = await user.generateToken();
@@ -39,7 +39,7 @@ exports.register = async (req, res) => {
       token,
     });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).json({
       success: false,
       message: error.message,
@@ -93,6 +93,14 @@ exports.login = async (req, res) => {
 
 exports.logout = async (req, res) => {
   try {
+    req.session.destroy((err) => {
+      if (err)
+        return res.status(400).json({
+          success: false,
+          error: err,
+        });
+    });
+    res.clearCookie("connect.sid");
     res
       .status(200)
       .cookie("token", null, { expires: new Date(Date.now()), httpOnly: true })
@@ -509,19 +517,18 @@ exports.getUserPosts = async (req, res) => {
   }
 };
 
-
-exports.blockUser = async(req, res)=>{
-    try {
-        const user = await User.findById(req.params.id);
-        const me = await User.findById(req.user._id);
-        me.blocks.push({
-            user:user._id
-        })
-        await me.save();
-    } catch (error) {
-        res.status(500).json({
-            success:false,
-            message:error.message
-        })
-    }
-}
+exports.blockUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    const me = await User.findById(req.user._id);
+    me.blocks.push({
+      user: user._id,
+    });
+    await me.save();
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
