@@ -12,6 +12,8 @@ import Userprofile from "./components/Userprofile/Userprofile";
 import Followings from "./components/Followings/Followings";
 import Followers from "./components/Followers/Follwers";
 import Search from "./components/Search/Search";
+import Newpost from "./components/Newpost/Newpost";
+import Editprofile from "./components/Editprofile/Editprofile";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +34,8 @@ function App() {
           <Route path={"/followings/:id"} element={<Followings />} />
           <Route path={"/followers/:id"} element={<Followers />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/newpost" element={<Newpost />} />
+          <Route path="/editprofile" element={<Editprofile />} />
           <Route path={"*"} element={<h1>Page not found</h1>} />
         </Routes>
       </Router>

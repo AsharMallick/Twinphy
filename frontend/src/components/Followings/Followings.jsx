@@ -1,68 +1,275 @@
-import React from "react";
-import Header from "../Header/Header";
 import { Link } from "react-router-dom";
 const Followings = () => {
-  const user = {
-    _id: "6f783ej38f3482343498",
-    username: "Ashar Mallick",
-    email: "asharmallick750@gmail.com",
-    avatar: {
-      public_id: "asoadmskdsmds",
-      url: "https://img.freepik.com/free-icon/user_318-159711.jpg",
-    },
-  };
-  const post = {
-    _id: "6a9mskdmskdwsdksmdsdmsjmdjsd",
-    title: "Temp",
-    comments: [
-      {
-        user: {
-          _id: "6f783ej38f3482343498",
-          username: "Ashar Mallick",
-          avatar: {
-            public_id: "asoadmskdsmds",
-            url: "https://img.freepik.com/free-icon/user_318-159711.jpg",
-          },
-        },
-        comment:
-          "Awesome app i ever used. great structure, and customizable for multipurpose. 😀😀",
-      },
-      {
-        user: {
-          _id: "6f783ej38f3482343498",
-          username: "Ashar Mallick2",
-          avatar: {
-            public_id: "asoadmskdsmds",
-            url: "https://img.freepik.com/free-icon/user_318-159711.jpg",
-          },
-        },
-        comment: "Nice work... 😍😍",
-      },
-      {
-        user: {
-          _id: "6f783ej38f3482343498",
-          username: "Ashar Mallick3",
-          avatar: {
-            public_id: "asoadmskdsmds",
-            url: "https://img.freepik.com/free-icon/user_318-159711.jpg",
-          },
-        },
-        comment: "We will always be friends until we are so old and senile.",
-      },
-    ],
-  };
-
   return (
     <>
-      <Header heading={user.username} hideButtons={true} />
-      <main className="min-h-screen bg-secondary pt-5">
-        <div className="folloings flex flex-col w-3/4 mx-auto space-y-7">
-          <div className="heading">
-            <h1 className="text-lg text-gray-700 font-bold">Followings</h1>
+      <div className="page-wraper header-fixed">
+        {/* <!-- Preloader -->
+        <!-- <div id="preloader">
+            <div class="spinner"></div>
+        </div> --> */}
+        <header className="header">
+          <div className="container">
+            <div className="main-bar">
+              <div className="left-content">
+                <h4 className="title mb-0">Jovi Daniel Jr.</h4>
+              </div>
+              <div className="mid-content"></div>
+              <div className="right-content"></div>
+            </div>
           </div>
-          <SingleUserDetails user={user} />
+        </header>
+
+        <div className="page-content">
+          <nav id="main-navigation">
+            <ul className="links-container">
+              <li className="nav-link active">85 Followings</li>
+            </ul>
+          </nav>
+          <div className="swiper-scrollbar"></div>
+          <div className="container profile-area pt-0">
+            <article id="pages-container">
+              <article id="pages-container-inner">
+                <div className="swiper-wrapper">
+                  <div className="swiper-slide">
+                    <div className="contant-section style-2">
+                      <div className="tab-content" id="myTab3Content">
+                        <div
+                          style={{ padding: "62px 10px" }}
+                          className="tab-pane fade show active"
+                          id="list"
+                          role="tabpanel"
+                          aria-labelledby="list-tab"
+                        >
+                          <div className="dz-user-list row g-3">
+                            {/* Card Starts here */}
+                            <div className="col-12">
+                              <div className="user-grid style-2">
+                                <Link
+                                  to="/user/asasajskas"
+                                  className="d-flex align-items-center"
+                                >
+                                  <div className="media status media-50">
+                                    <img
+                                      src="../../public/assets/images/stories/small/pic1.jpg"
+                                      alt="/"
+                                    />
+                                    <div className="active-point"></div>
+                                  </div>
+                                  <span className="name">Andy Lee</span>
+                                </Link>
+                                <Link className="follow-btn">UNFOLLOW</Link>
+                              </div>
+                            </div>
+                            {/* Card Ends here */}
+                            <div className="col-12">
+                              <div className="user-grid style-2">
+                                <Link
+                                  to="/user/asasajskas"
+                                  className="d-flex align-items-center"
+                                >
+                                  <div className="media status media-50">
+                                    <img
+                                      src="../../public/assets/images/stories/small/pic2.jpg"
+                                      alt="/"
+                                    />
+                                    <div className="active-point"></div>
+                                  </div>
+                                  <span className="name">Brian Harahap</span>
+                                </Link>
+                                <Link className="follow-btn">UNFOLLOW</Link>
+                              </div>
+                            </div>
+                            <div className="col-12">
+                              <div className="user-grid style-2">
+                                <Link
+                                  to="/user/asasajskas"
+                                  className="d-flex align-items-center"
+                                >
+                                  <div className="media status media-50">
+                                    <img
+                                      src="../../public/assets/images/stories/small/pic3.jpg"
+                                      alt="/"
+                                    />
+                                    <div className="active-point"></div>
+                                  </div>
+                                  <span className="name">Christian Hang</span>
+                                </Link>
+                                <Link className="follow-btn">UNFOLLOW</Link>
+                              </div>
+                            </div>
+                            <div className="col-12">
+                              <div className="user-grid style-2">
+                                <Link
+                                  to="/user/asasajskas"
+                                  className="d-flex align-items-center"
+                                >
+                                  <div className="media status media-50">
+                                    <img
+                                      src="../../public/assets/images/stories/small/pic4.jpg"
+                                      alt="/"
+                                    />
+                                    <div className="active-point"></div>
+                                  </div>
+                                  <span className="name">Chloe Mc.Jenskin</span>
+                                </Link>
+                                <Link className="follow-btn">UNFOLLOW</Link>
+                              </div>
+                            </div>
+                            <div className="col-12">
+                              <div className="user-grid style-2">
+                                <Link
+                                  to="/user/asasajskas"
+                                  className="d-flex align-items-center"
+                                >
+                                  <div className="media status media-50">
+                                    <img
+                                      src="../../public/assets/images/stories/small/pic6.jpg"
+                                      alt="/"
+                                    />
+                                    <div className="active-point"></div>
+                                  </div>
+                                  <span className="name">David Bekam</span>
+                                </Link>
+                                <Link className="follow-btn">UNFOLLOW</Link>
+                              </div>
+                            </div>
+                            <div className="col-12">
+                              <div className="user-grid style-2">
+                                <Link
+                                  to="/user/asasajskas"
+                                  className="d-flex align-items-center"
+                                >
+                                  <div className="media status media-50">
+                                    <img
+                                      src="../../public/assets/images/stories/small/pic5.jpg"
+                                      alt="/"
+                                    />
+                                    <div className="active-point"></div>
+                                  </div>
+                                  <span className="name">Dons John</span>
+                                </Link>
+                                <Link className="follow-btn">UNFOLLOW</Link>
+                              </div>
+                            </div>
+                            <div className="col-12">
+                              <div className="user-grid style-2">
+                                <Link
+                                  to="/user/asasajskas"
+                                  className="d-flex align-items-center"
+                                >
+                                  <div className="media status media-50">
+                                    <img
+                                      src="../../public/assets/images/stories/small/pic6.jpg"
+                                      alt="/"
+                                    />
+                                    <div className="active-point"></div>
+                                  </div>
+                                  <span className="name">Eric Leew</span>
+                                </Link>
+                                <Link className="follow-btn">UNFOLLOW</Link>
+                              </div>
+                            </div>
+                            <div className="col-12">
+                              <div className="user-grid style-2">
+                                <Link
+                                  to="/user/asasajskas"
+                                  className="d-flex align-items-center"
+                                >
+                                  <div className="media status media-50">
+                                    <img
+                                      src="../../public/assets/images/stories/small/pic7.jpg"
+                                      alt="/"
+                                    />
+                                    <div className="active-point"></div>
+                                  </div>
+                                  <span className="name">Richard Sigh</span>
+                                </Link>
+                                <Link className="follow-btn">UNFOLLOW</Link>
+                              </div>
+                            </div>
+                            <div className="col-12">
+                              <div className="user-grid style-2">
+                                <Link
+                                  to="/user/asasajskas"
+                                  className="d-flex align-items-center"
+                                >
+                                  <div className="media status media-50">
+                                    <img
+                                      src="../../public/assets/images/stories/small/pic8.jpg"
+                                      alt="/"
+                                    />
+                                    <div className="active-point"></div>
+                                  </div>
+                                  <span className="name">Andy Lee</span>
+                                </Link>
+                                <Link className="follow-btn">UNFOLLOW</Link>
+                              </div>
+                            </div>
+                            <div className="col-12">
+                              <div className="user-grid style-2">
+                                <Link
+                                  to="/user/asasajskas"
+                                  className="d-flex align-items-center"
+                                >
+                                  <div className="media status media-50">
+                                    <img
+                                      src="../../public/assets/images/stories/small/pic5.jpg"
+                                      alt="/"
+                                    />
+                                    <div className="active-point"></div>
+                                  </div>
+                                  <span className="name">Brian Harahapc</span>
+                                </Link>
+                                <Link className="follow-btn">UNFOLLOW</Link>
+                              </div>
+                            </div>
+                            <div className="col-12">
+                              <div className="user-grid style-2">
+                                <Link
+                                  to="/user/asasajskas"
+                                  className="d-flex align-items-center"
+                                >
+                                  <div className="media status media-50">
+                                    <img
+                                      src="../../public/assets/images/stories/small/pic4.jpg"
+                                      alt="/"
+                                    />
+                                    <div className="active-point"></div>
+                                  </div>
+                                  <span className="name">David Bekam</span>
+                                </Link>
+                                <Link className="follow-btn">UNFOLLOW</Link>
+                              </div>
+                            </div>
+                            <div className="col-12">
+                              <div className="user-grid style-2">
+                                <Link
+                                  to="/user/asasajskas"
+                                  className="d-flex align-items-center"
+                                >
+                                  <div className="media status media-50">
+                                    <img
+                                      src="../../public/assets/images/stories/small/pic3.jpg"
+                                      alt="/"
+                                    />
+                                    <div className="active-point"></div>
+                                  </div>
+                                  <span className="name">Jackson</span>
+                                </Link>
+                                <Link className="follow-btn">UNFOLLOW</Link>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </article>
+          </div>
         </div>
-      </main>
+      </div>
     </>
   );
 };
@@ -70,14 +277,37 @@ const Followings = () => {
 export default Followings;
 
 export const SingleUserDetails = ({ user }) => {
+  const styles = {
+    width: "50vw",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    margin: "20px auto",
+  };
   return (
-    <Link to={"/user/aismaisfdskm"}>
-      <div className="user-details flex items-center space-x-5">
-        <div className="img">
-          <img src={user.avatar.url} alt="" className="w-[4vw]" />
-        </div>
-        <div className="username text-lg font-bold">{user.username}</div>
+    <div className="col-12" style={{ width: "100vw" }}>
+      <div className="user-grid style-2" style={styles}>
+        <Link to="/user/asasajskas" className="d-flex align-items-center">
+          <div className="media status media-50">
+            <img
+              src="../../public/assets/images/stories/small/pic1.jpg"
+              alt="/"
+            />
+            <div className="active-point"></div>
+          </div>
+          <span
+            className="name"
+            style={{
+              marginLeft: "20px",
+              color: "#2f2f2f",
+              fontWeight: "bolder",
+            }}
+          >
+            {user.username}
+          </span>
+        </Link>
+        <Link className="follow-btn">UNFOLLOW</Link>
       </div>
-    </Link>
+    </div>
   );
 };
