@@ -65,8 +65,9 @@ router.get(
   "/login",
   passport.authenticate("google", {
     scope: ["profile"],
-    successRedirect: "http://localhost:4000/api/v1/me",
-    //successRedirect:process.env.FRONTEND_URL
+    // successRedirect: "http://localhost:4000/api/v1/me",
+    successRedirect: process.env.FRONTEND_URL,
+    session: true,
   })
 );
 

@@ -1,4 +1,8 @@
-import { Link } from "react-router-dom";
+import { useEffect, useReducer, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { followUnfollowUser, getAllUsers } from "../../state/actions/user";
+
 const Followings = () => {
   return (
     <>
@@ -276,6 +280,7 @@ const Followings = () => {
 
 export default Followings;
 
+// eslint-disable-next-line react/prop-types
 export const SingleUserDetails = ({ user }) => {
   const styles = {
     width: "50vw",
@@ -284,15 +289,33 @@ export const SingleUserDetails = ({ user }) => {
     justifyContent: "space-between",
     margin: "20px auto",
   };
-  return (
+  const { user: loggedInUser } = useSelector((state) => state.user);
+  const { loading } = useSelector((state) => state.like);
+  const { loading: allUsersLoading } = useSelector((state) => state.allUsers);
+  const dispatch = useDispatch();
+
+  const [isFollowed, setIsFollowed] = useState(false);
+  useEffect(() => {
+    if (loggedInUser) {
+      user.followers.forEach((item) => {
+        if (item.toString() == loggedInUser._id.toString()) {
+          setIsFollowed(true);
+        }
+      });
+    }
+  }, [loggedInUser, user]);
+  const handleFollow = async (userId) => {
+    await dispatch(followUnfollowUser(userId));
+    dispatch(getAllUsers(searchQuery));
+
+  };
+
+  return !loading && !allUsersLoading ? (
     <div className="col-12" style={{ width: "100vw" }}>
       <div className="user-grid style-2" style={styles}>
-        <Link to="/user/asasajskas" className="d-flex align-items-center">
+        <Link to={`/user/${user._id}`} className="d-flex align-items-center">
           <div className="media status media-50">
-            <img
-              src="../../public/assets/images/stories/small/pic1.jpg"
-              alt="/"
-            />
+            <img src={user.avatar.url} alt="/" />
             <div className="active-point"></div>
           </div>
           <span
@@ -303,11 +326,31 @@ export const SingleUserDetails = ({ user }) => {
               fontWeight: "bolder",
             }}
           >
-            {user.username}
+            {user.name}
           </span>
         </Link>
-        <Link className="follow-btn">UNFOLLOW</Link>
+        {user?._id !== loggedInUser?._id && (
+          <button
+            style={{ background: "white" }}
+            onClick={() => {setIsFollowed(!isFollowed); handleFollow(user._id);
+            }}
+            className="follow-btn"
+          >
+            {isFollowed ? "UNFOLLOW" : "FOLLOW" }
+          </button>
+        )}
       </div>
+    </div>
+  ) : (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+      }}
+    >
+      <h1>Loading...</h1>
     </div>
   );
 };

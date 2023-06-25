@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: [true, "Email already exists"],
+    // unique: [true, "Email already exists"],
   },
   password: {
     type: String,
@@ -57,16 +57,14 @@ const userSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
-  googleId: {
-    type: String,
-    // unique: true,
-  },
-
   facebookId: {
     type: String,
     // unique: true,
   },
-
+  googleId: {
+    type: String,
+    // unique: true,
+  },
   resetPasswordToken: String,
   resetPasswordExpire: Date,
 });

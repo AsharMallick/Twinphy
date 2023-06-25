@@ -68,6 +68,73 @@ export const userReducer = createReducer(initialState, {
   },
 });
 
+export const postOfFollowingReducer = createReducer(initialState, {
+  postOfFollowingRequest: (state) => {
+    state.loading = true;
+  },
+  postOfFollowingSuccess: (state, action) => {
+    state.loading = false;
+    state.posts = action.payload;
+  },
+  postOfFollowingFailure: (state, action) => {
+    state.loading = false;
+    state.error = action.payload;
+  },
+  clearErrors: (state) => {
+    state.error = null;
+  },
+});
+
+export const allUsersReducer = createReducer(initialState, {
+  allUsersRequest: (state) => {
+    state.loading = true;
+  },
+  allUsersSuccess: (state, action) => {
+    state.loading = false;
+    state.users = action.payload;
+  },
+  allUsersFailure: (state, action) => {
+    state.loading = false;
+    state.error = action.payload;
+  },
+  clearErrors: (state) => {
+    state.error = null;
+  },
+});
+
+export const getUserPosts = createReducer(initialState, {
+  userPostsRequest: (state) => {
+    state.loading = true;
+  },
+  userPostsSuccess: (state, action) => {
+    state.loading = false;
+    state.posts = action.payload;
+  },
+  userPostsFailure: (state, action) => {
+    state.loading = false;
+    state.error = action.payload;
+  },
+  clearErrors: (state) => {
+    state.error = null;
+  },
+});
+export const getUserProfile = createReducer(initialState, {
+  userProfileRequest: (state) => {
+    state.loading = true;
+  },
+  userProfileSuccess: (state, action) => {
+    state.loading = false;
+    state.user = action.payload;
+  },
+  userProfileFailure: (state, action) => {
+    state.loading = false;
+    state.error = action.payload;
+  },
+  clearErrors: (state) => {
+    state.error = null;
+  },
+});
+
 // router.route("/register").post(register);
 
 // router.route("/login").post(login);

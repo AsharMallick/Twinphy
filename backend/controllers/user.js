@@ -10,20 +10,21 @@ exports.register = async (req, res) => {
 
     let user = await User.findOne({ email });
     if (user) {
-      return res
-        .status(400)
-        .json({ success: false, message: "User already exists" });
+      return res.status(400).json({
+        success: false,
+        message: "User with this email already exists",
+      });
     }
 
-    const myCloud = await cloudinary.v2.uploader.upload(avatar, {
-      folder: "avatars",
-    });
+    // const myCloud = await cloudinary.v2.uploader.upload(avatar, {
+    //   folder: "avatars",
+    // });
 
     user = await User.create({
       name,
       email,
       password,
-      avatar: { public_id: myCloud.public_id, url: myCloud.secure_url },
+      avatar: { public_id: "myCloud.public_id", url: "myCloud.secure_url" },
     });
     await user.save();
     const token = await user.generateToken();
@@ -120,6 +121,7 @@ exports.followUser = async (req, res) => {
   try {
     const userToFollow = await User.findById(req.params.id);
     const loggedInUser = await User.findById(req.user._id);
+    console.log(loggedInUser);
 
     if (!userToFollow) {
       return res.status(404).json({
@@ -321,6 +323,7 @@ exports.deleteMyProfile = async (req, res) => {
 
 exports.myProfile = async (req, res) => {
   try {
+    console.log(req.user);
     const user = await User.findById(req.user._id).populate(
       "posts followers following"
     );

@@ -1,26 +1,19 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 // import logo from "../../assets/logo.png";
-import { useDispatch, useSelector } from "react-redux";
-import { loadUser, logout } from "../../state/actions/user";
 
 const Navbar = () => {
   const location = useLocation();
-  const { user } = useSelector((state) => state.user);
 
   const [isHidden, setIsHidden] = useState(false);
 
   useEffect(() => {
     if (location.pathname == "/login" || location.pathname === "/signup") {
       setIsHidden(true);
+    } else {
+      setIsHidden(false);
     }
   }, [location.pathname]);
-
-  const dispatch = useDispatch();
-  const handleLogout = async () => {
-    await dispatch(logout());
-    dispatch(loadUser());
-  };
 
   return (
     !isHidden && (

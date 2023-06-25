@@ -1,10 +1,20 @@
+import { useEffect, useState } from "react";
 import { SingleUserDetails } from "../Followings/Followings";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllUsers } from "../../state/actions/user";
 
-const user = {
-  username: "Ashar Mallick",
-};
 
 const Search = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const dispatch = useDispatch();
+  
+  
+  const { users } = useSelector((state) => state.allUsers);
+
+  useEffect(() => {
+    dispatch(getAllUsers(searchQuery));
+  }, [searchQuery, dispatch]);
+
   return (
     <>
       <header className="header">
@@ -15,6 +25,7 @@ const Search = () => {
                 type="text"
                 className="form-control"
                 placeholder="Search.."
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
               <span className="input-group-text">
                 <svg
@@ -34,10 +45,25 @@ const Search = () => {
           </form>
         </div>
       </header>
-      <SingleUserDetails user={user} />
-      <SingleUserDetails user={user} />
-      <SingleUserDetails user={user} />
-      <SingleUserDetails user={user} />
+      {users?.length > 0 ? (
+        users?.map((user) => (
+          <SingleUserDetails
+            key={user._id}
+            user={user}
+          />
+        ))
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "100vh",
+          }}
+        >
+          <h1>No user found</h1>
+        </div>
+      )}
     </>
   );
 };

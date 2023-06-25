@@ -10,15 +10,9 @@ require("dotenv").config({ path: "backend/config/config.env" });
 const { connectPassport } = require("./utils/Provider");
 
 // Using Middlewares
-app.use(express.json({ limit: "50mb" }));
-const corsOptions = {
-  origin: "http://localhost:5173",
-  credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
-};
-
-app.use(cors(corsOptions));
 app.use(cookieParser());
+app.use(express.json({ limit: "50mb" }));
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -26,10 +20,16 @@ app.use(
     saveUninitialized: false,
   })
 );
-
 app.use(passport.authenticate("session"));
 app.use(passport.initialize());
 app.use(passport.session());
+const corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 connectPassport();
 // Importing Routes
@@ -37,6 +37,7 @@ connectPassport();
 const post = require("./routes/post");
 const user = require("./routes/user");
 const contest = require("./routes/contest");
+const User = require("./models/User");
 
 // Using Routes
 app.use("/api/v1", post);

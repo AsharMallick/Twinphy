@@ -8,7 +8,7 @@ const Header = () => {
               <h4 className="title mb-0">Home</h4>
             </div>
             <div className="mid-content"></div>
-            <div className="right-content d-flex align-items-center">
+            {/* <div className="right-content d-flex align-items-center">
               <a href="reels.html" className="bell-icon me-2">
                 <svg
                   id="Layer_3"
@@ -83,7 +83,7 @@ const Header = () => {
                   <path d="M15,21h4c1.1,0,2-0.9,2-2v-4c0-1.1-0.9-2-2-2h-4c-1.1,0-2,0.9-2,2v4C13,20.1,13.9,21,15,21z" />
                 </svg>
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       </header>

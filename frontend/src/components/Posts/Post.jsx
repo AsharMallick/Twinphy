@@ -1,11 +1,21 @@
 // import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Post = ({ caption, imageUrl, user, userId, postId, comment, likes }) => {
+const Post = ({
+  caption,
+  fileUrl,
+  user,
+  userId,
+  postId,
+  comment,
+  likes,
+  isVideo,
+}) => {
   //   const [isLiked, setIsLiked] = useState(false);
   //   const handleLike = () => {
   //     setIsLiked(!isLiked);
   //   };
+  let fileExt = fileUrl.split(".")[fileUrl.split(".").length - 1];
   return (
     <div className="page-content" style={{ marginBottom: "-70px" }}>
       <div className="content-inner pt-0">
@@ -15,44 +25,12 @@ const Post = ({ caption, imageUrl, user, userId, postId, comment, likes }) => {
               <div className="top-meta">
                 <div className="d-flex justify-content-between align-items-start">
                   <Link to="/user/sodjskdmkld" className="media media-40">
-                    <img
-                      className="rounded"
-                      src="assets/images/stories/small/pic4.jpg"
-                      alt="/"
-                    />
+                    <img className="rounded" src={user.avatar.url} alt="/" />
                   </Link>
                   <div className="meta-content ms-3">
                     <h6 className="title mb-0">
-                      <Link to="/user/3sdkjsdks">{"Ashar Malick"}</Link>
+                      <Link to={"/user/" + userId}>{user.name}</Link>
                     </h6>
-                    <ul className="meta-list">
-                      <li>
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 14 14"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M12.25 5.83331C12.25 9.91665 7 13.4166 7 13.4166C7 13.4166 1.75 9.91665 1.75 5.83331C1.75 4.44093 2.30312 3.10557 3.28769 2.121C4.27226 1.13644 5.60761 0.583313 7 0.583313C8.39239 0.583313 9.72774 1.13644 10.7123 2.121C11.6969 3.10557 12.25 4.44093 12.25 5.83331Z"
-                            stroke="black"
-                            strokeOpacity="0.6"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M7 7.58331C7.9665 7.58331 8.75 6.79981 8.75 5.83331C8.75 4.86681 7.9665 4.08331 7 4.08331C6.0335 4.08331 5.25 4.86681 5.25 5.83331C5.25 6.79981 6.0335 7.58331 7 7.58331Z"
-                            stroke="black"
-                            strokeOpacity="0.6"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                        Bangkok, Thailand
-                      </li>
-                      <li>2m ago</li>
-                    </ul>
                   </div>
                 </div>
                 <a
@@ -75,12 +53,27 @@ const Post = ({ caption, imageUrl, user, userId, postId, comment, likes }) => {
                   </svg>
                 </a>
               </div>
-              <p className="text-black">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                sum sit emat 😎😎
-              </p>
-              <div className="dz-media">
-                <img src="assets/images/post/pic1.png" alt="/" />
+              <p className="text-black">{caption}</p>
+              <div className="dz-meda">
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {fileExt === "mp4" || fileExt === "avi" ? (
+                    <video
+                      src={fileUrl}
+                      style={{
+                        width: "50%",
+                      }}
+                      controls
+                    ></video>
+                  ) : (
+                    <img src={fileUrl} style={{ width: "150px" }} />
+                  )}
+                </div>
                 <div className="post-meta-btn">
                   <ul>
                     <li>
@@ -88,7 +81,7 @@ const Post = ({ caption, imageUrl, user, userId, postId, comment, likes }) => {
                         <i className="fa-regular fa-heart fill-icon"></i>
                         <i className="fa-solid fa-heart fill-icon-2"></i>
                         <h6 className="font-14 mb-0 ms-2" id="value1">
-                          221
+                          {likes}
                         </h6>
                       </a>
                     </li>
@@ -98,7 +91,7 @@ const Post = ({ caption, imageUrl, user, userId, postId, comment, likes }) => {
                         className="action-btn bg-secondary"
                       >
                         <i className="fa-solid fa-comment fill-icon"></i>
-                        <h6 className="font-14 mb-0 ms-2">150</h6>
+                        <h6 className="font-14 mb-0 ms-2">{comment}</h6>
                       </Link>
                     </li>
                   </ul>

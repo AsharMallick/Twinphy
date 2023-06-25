@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const postSchema = new mongoose.Schema({
   caption: String,
 
-  image: {
+  file: {
     public_id: String,
     url: String,
   },
@@ -16,6 +16,10 @@ const postSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  isVideo: {
+    type: Boolean,
+    enum: [true, false],
   },
   likes: [
     {

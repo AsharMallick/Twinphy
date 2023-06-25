@@ -11,10 +11,11 @@ const {
   reportPost,
 } = require("../controllers/post");
 const { isAuthenticated } = require("../middlewares/auth");
+const singleUpload = require("../middlewares/multer");
 
 const router = express.Router();
 
-router.route("/post/upload").post(isAuthenticated, createPost);
+router.route("/post/upload").post(isAuthenticated, singleUpload, createPost);
 
 router
   .route("/post/:id")
@@ -24,9 +25,9 @@ router
 
 router.route("/posts").get(isAuthenticated, getPostOfFollowing);
 
-router.post('/post/report/:id', isAuthenticated, reportPost)
+router.post("/post/report/:id", isAuthenticated, reportPost);
 
-router.get("/post/details/:id", getPostDetails)
+router.get("/post/details/:id", getPostDetails);
 
 router
   .route("/post/comment/:id")

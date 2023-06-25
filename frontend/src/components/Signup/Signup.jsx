@@ -7,7 +7,6 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [avatar, setAvatar] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,38 +27,18 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(signupUser(name, email, password, avatar));
+    dispatch(signupUser(name, email, password));
   };
 
   const handleGoogleSignup = () => {
     // Handle Google signup
     console.log("Google signup");
   };
-
-  const handleFacebookSignup = () => {
-    // Handle Facebook signup
-    console.log("Facebook signup");
-  };
   useEffect(() => {
     if (error) {
-      //Todo Error handling
       console.log(error);
     }
   }, [error]);
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-
-    const Reader = new FileReader();
-    Reader.readAsDataURL(file);
-
-    Reader.onload = () => {
-      if (Reader.readyState === 2) {
-        setAvatar(Reader.result);
-      }
-    };
-  };
-  //   console.log(avatar)
   useEffect(() => {
     if (user) {
       navigate("/");
@@ -83,7 +62,7 @@ const Signup = () => {
                 <div className="started">
                   <h1 className="title">Create an Account</h1>
                 </div>
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className="mb-3 input-group input-group-icon">
                     <span className="input-group-text">
                       <div className="input-icon">
@@ -114,6 +93,8 @@ const Signup = () => {
                       type="text"
                       className="form-control"
                       placeholder="Name"
+                      onChange={handleNameChange}
+                      value={name}
                     />
                   </div>
                   <div className="mb-3 input-group input-group-icon">
@@ -146,6 +127,8 @@ const Signup = () => {
                       type="email"
                       className="form-control"
                       placeholder="Email"
+                      onChange={handleEmailChange}
+                      value={email}
                     />
                   </div>
                   <div className="mb-3 input-group input-group-icon">
@@ -176,16 +159,21 @@ const Signup = () => {
                       type="password"
                       className="form-control dz-password"
                       placeholder="Password"
+                      onChange={handlePasswordChange}
+                      value={password}
                     />
                     <span className="input-group-text show-pass">
                       <i className="fa fa-eye-slash text-primary"></i>
                       <i className="fa fa-eye text-primary"></i>
                     </span>
                   </div>
+                  <button
+                    type="submit"
+                    className="btn btn-primary btn-block mb-3"
+                  >
+                    REGISTER
+                  </button>
                 </form>
-                <a href="login.html" className="btn btn-primary btn-block mb-3">
-                  REGISTER
-                </a>
                 <div className="d-flex align-items-center justify-content-center">
                   <a className="text-light text-center d-block">
                     Already have an account?

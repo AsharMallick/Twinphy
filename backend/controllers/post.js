@@ -1,22 +1,36 @@
 const Post = require("../models/Post");
 const User = require("../models/User");
 const cloudinary = require("cloudinary");
+const getDataUri = require("../utils/dataUri");
 exports.createPost = async (req, res) => {
   try {
-    const myCloud = await cloudinary.v2.uploader.upload(req.body.image, {
-      folder: "posts",
-    });
+    const file = req.file;
+    const fileUri = getDataUri(file);
+    let video = false;
+    console.log(file.mimetype);
+    let myCloud;
+    if (file.mimetype.includes("video")) {
+      myCloud = await cloudinary.v2.uploader.upload(fileUri.content, {
+        resource_type: "video",
+      });
+      video = true;
+    } else {
+      myCloud = await cloudinary.v2.uploader.upload(fileUri.content, {
+        resource_type: "image",
+      });
+    }
+    console.log(req.user);
     const newPostData = {
       caption: req.body.caption,
-      image: {
+      file: {
         public_id: myCloud.public_id,
         url: myCloud.secure_url,
       },
       owner: req.user._id,
+      isVideo: video,
     };
 
     const post = await Post.create(newPostData);
-
     const user = await User.findById(req.user._id);
 
     user.posts.unshift(post._id);
@@ -293,20 +307,20 @@ exports.getPostDetails = async (req, res) => {
 
 exports.reportPost = async (req, res) => {
   try {
-    const {reason} = req.body
-    const post = await Post.findById(req.params.id)
+    const { reason } = req.body;
+    const post = await Post.findById(req.params.id);
     post.reports.push({
-        user:req.user._id,
-        reason
+      user: req.user._id,
+      reason,
     });
-    if(post.reports.length>10){
-        await post.deleteOne();
+    if (post.reports.length > 10) {
+      await post.deleteOne();
     }
     await post.save();
     res.status(200).json({
-        success:true,
-        message:"Post reported successfully"
-    })
+      success: true,
+      message: "Post reported successfully",
+    });
   } catch (error) {
     res.status(500).json({
       success: false,

@@ -2,27 +2,28 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../state/actions/user";
 import { Link, useNavigate } from "react-router-dom";
+import { server } from "../../state/store";
+import axios from "axios";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isHidden, setIsHidden] = useState(true);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { user, loading, error } = useSelector((state) => state.user);
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("submiting");
     dispatch(loginUser(email, password));
+  };
+
+  const handleGoogleLogin = () => {
+    window.open(`${server}/googlelogin`, "_self");
+    // axios.get(`${server}/googlelogin`, {
+    //   withCredentials: true,
+    // });
   };
 
   useEffect(() => {
@@ -52,7 +53,7 @@ const Login = () => {
               <div className="started">
                 <h1 className="title">Sign in</h1>
               </div>
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="mb-3 input-group input-group-icon">
                   <span className="input-group-text">
                     <div className="input-icon">
@@ -80,9 +81,11 @@ const Login = () => {
                     </div>
                   </span>
                   <input
-                    type="text"
+                    type="email"
                     className="form-control"
-                    placeholder="Name"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="mb-3 input-group input-group-icon">
@@ -113,39 +116,50 @@ const Login = () => {
                     type="password"
                     className="form-control dz-password"
                     placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                   <span className="input-group-text show-pass">
                     <i className="fa fa-eye-slash text-primary"></i>
                     <i className="fa fa-eye text-primary"></i>
                   </span>
                 </div>
+                <a
+                  href="forgot-password.html"
+                  className="btn-link d-block mb-3 text-end text-underline"
+                >
+                  Forgot Password
+                </a>
+                <button
+                  type="submit"
+                  className="btn btn-primary btn-block mb-3"
+                >
+                  SIGN IN
+                </button>
               </form>
-              <a
-                href="forgot-password.html"
-                className="btn-link d-block mb-3 text-end text-underline"
-              >
-                Forgot Password
-              </a>
-              <a href="index.html" className="btn btn-primary btn-block mb-3">
-                SIGN IN
-              </a>
               <div className="social-box">
                 <span>Or sign in with</span>
                 <div className="d-flex justify-content-between">
                   <img src="assets/images/icons/facebook.png" alt="/" />
-                  <img src="assets/images/icons/google.png" alt="/" />
+                  <a href={`${server}/googlelogin`}>
+                  <img
+                    // onClick={handleGoogleLogin}
+                    src="assets/images/icons/google.png"
+                    alt="/"
+                  />
+                  </a>
                 </div>
               </div>
               <div className="d-flex align-items-center justify-content-center">
                 <a className="text-light text-center d-block">
                   Don’t have an account?
                 </a>
-                <a
-                  href="register.html"
+                <Link
+                  to="/signup"
                   className="btn-link d-block ms-3 text-underline"
                 >
                   Signup here
-                </a>
+                </Link>
               </div>
             </div>
           </div>
